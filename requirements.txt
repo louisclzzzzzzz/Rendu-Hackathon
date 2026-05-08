@@ -1,0 +1,26 @@
+# Core
+numpy>=1.24
+pandas>=2.0
+scipy>=1.11
+scikit-learn>=1.3
+openpyxl>=3.1
+
+# Statistical models
+statsmodels>=0.14
+
+# Visualization
+matplotlib>=3.7
+seaborn>=0.12
+
+# Progress bars
+tqdm>=4.66
+
+# Optional — deep learning (install one)
+# torch>=2.0           # PyTorch (recommended)
+# tensorflow>=2.13     # Keras/TF alternative
+
+# Optional — gradient boosting
+# xgboost>=2.0
+
+# Jupyter (optional, for exploration)
+# jupyterlab>=4.0

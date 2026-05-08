@@ -1,0 +1,21 @@
+# Machine Learning models
+models/
+*.pkl
+*.pt
+
+# Results and logs
+results/
+report.md
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.env
+
+# OS
+.DS_Store
