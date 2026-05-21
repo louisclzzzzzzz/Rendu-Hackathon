@@ -5,7 +5,6 @@ models/
 
 # Results and logs
 results/
-report.md
 *.log
 
 # Python
@@ -16,6 +15,18 @@ __pycache__/
 env/
 venv/
 .env
+
+# LaTeX build artifacts
+*.aux
+*.fls
+*.fdb_latexmk
+*.nav
+*.snm
+*.toc
+*.out
+*.synctex.gz
+*.lof
+report.md
 
 # OS
 .DS_Store

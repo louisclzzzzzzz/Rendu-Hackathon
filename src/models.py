@@ -452,12 +452,42 @@ else:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════════════════════════
+# Baseline: Random Walk
+# ═══════════════════════════════════════════════════════════════════════════════
+
+class RandomWalkModel:
+    """Baseline random walk: last value + cumulative Gaussian noise scaled to training volatility."""
+    name = "RandomWalk"
+
+    def __init__(self):
+        self.sigma = 1.0
+
+    def fit(self, X_train, y_train, X_val=None, y_val=None):
+        # Estimate step std from training targets
+        flat = np.asarray(y_train).flatten()
+        diffs = np.diff(flat)
+        self.sigma = float(np.std(diffs)) if len(diffs) > 1 else 1.0
+
+    def predict(self, X_test, horizon=15):
+        X_test = np.asarray(X_test)
+        n = len(X_test)
+        preds = np.zeros((n, horizon), dtype=np.float32)
+        rng = np.random.default_rng(seed=42)
+        for i in range(n):
+            last = float(X_test[i, -1])
+            noise = rng.normal(0, self.sigma, size=horizon)
+            preds[i] = last + np.cumsum(noise)
+        return preds
+
+
 # Model registry
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def get_all_models(horizon: int = 15):
     """Return list of model instances."""
     models = [
+        RandomWalkModel(),
         ARIMAModel(),
         SARIMAModel(),
         HoltWintersModel(),
@@ -468,7 +498,7 @@ def get_all_models(horizon: int = 15):
         TransformerModel(horizon=horizon),
     ]
     if XGB_AVAILABLE:
-        models.insert(5, XGBoostModel())
+        models.insert(6, XGBoostModel())
     return models
 
 
